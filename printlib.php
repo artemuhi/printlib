@@ -7,6 +7,8 @@ define("LF", "\x0a");
 define("PORT", "/dev/usb/lp0")
 function initprint() {}
 function println($data) {}
-function printbarcode($data, $type="CODE39") {}
-function parse4print($data) {}
+function printcode39($data) {}
+function printcode128($data) {}
+function printean13($data) {}
+function printean8($data) {}
 ?>

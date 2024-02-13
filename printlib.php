@@ -22,7 +22,22 @@ function println($data) {
         return false;
     }
 }
-function printcode39($data) {}
+function printcode39($data) {
+    if (rawlen($data) and rawlen($data)<8) {
+        $lp=fopen(PORT, 'w');
+        fwrite($lp, "\x1dh\x50");
+        fwrite($lp, "\x1dH\x02");
+        fwrite($lp, "\x1df\x01");
+        fwrite($lp, "\x1dk\x45");
+        fwrite($lp, rawlen($data));
+        fwrite($lp, $data);
+        fwrite($lp, "\x0a");
+        fclose($lp);
+        return true;
+    } else {
+        return false;
+    }
+}
 function printcode128($data) {
     if (rawlen($data)) {
         $lp=fopen(PORT, 'w');
@@ -39,6 +54,36 @@ function printcode128($data) {
         return false;
     }
 }
-function printean13($data) {}
-function printean8($data) {}
+function printean13($data) {
+    if (rawlen($data) and (rawlen($data) == 12 or rawlen($data) == 13)) {
+        $lp=fopen(PORT, 'w');
+        fwrite($lp, "\x1dh\x50");
+        fwrite($lp, "\x1dH\x02");
+        fwrite($lp, "\x1df\x01");
+        fwrite($lp, "\x1dk\x43");
+        fwrite($lp, rawlen($data));
+        fwrite($lp, $data);
+        fwrite($lp, "\x0a");
+        fclose($lp);
+        return true;
+    } else {
+        return false;
+    }
+}
+function printean8($data) {
+    if (rawlen($data) and (rawlen($data) == 7 or rawlen($data) == 8)) {
+        $lp=fopen(PORT, 'w');
+        fwrite($lp, "\x1dh\x50");
+        fwrite($lp, "\x1dH\x02");
+        fwrite($lp, "\x1df\x01");
+        fwrite($lp, "\x1dk\x44");
+        fwrite($lp, rawlen($data));
+        fwrite($lp, $data);
+        fwrite($lp, "\x0a");
+        fclose($lp);
+        return true;
+    } else {
+        return false;
+    }
+}
 ?>

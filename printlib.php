@@ -7,7 +7,11 @@ define("LF", "\x0a");
 define("PORT", "/dev/usb/lp0");
 function rawlen($data) {
     if (strlen($data)<255 and strlen($data)<MAX_CHAR) {
-        return hex2bin(dechex(strlen($data)));
+        if (strlen($data)<16) {
+            return hex2bin("0" . dechex(strlen($data)));
+        } else {
+            return hex2bin(dechex(strlen($data)));
+        }
     } else {
         return false;
     }
